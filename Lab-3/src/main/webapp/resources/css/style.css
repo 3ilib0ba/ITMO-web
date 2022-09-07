@@ -1,0 +1,94 @@
+body {
+    font-size: 20px;
+    min-width: 50%;
+    /*background-image: url("../decorations/corgi.jpg");*/
+    background-size: 100%;
+    /*background-size: contain;*/
+    background-repeat: repeat-y, no-repeat;
+}
+
+.biba {
+    font-family: fantasy;
+    color: #344a91;
+    width: 100%;
+    line-height: 125%;
+    font-size: 50px;
+    font-weight: normal;
+    text-align: center;
+    text-shadow: -1px -1px 3px #7c3333;
+}
+
+h3 {
+    color: darkred;
+    font-size: 30px;
+    position: fixed;
+    bottom: 0;
+}
+
+table {
+    width: 100%;
+    height: 100%;
+}
+
+.container {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.animated-word {
+    font-family: Helvetica;
+    letter-spacing: 0.4em;
+    font-weight: 600;
+    font-size: 20px;
+    text-align: center;
+    color: #202125;
+    cursor: pointer;
+    width: 80%;
+    outline: 30px solid;
+    outline-color: rgba(71, 126, 232,0.5);
+    outline-offset: 10px;
+    transition: all 600ms cubic-bezier(0.2, 0.5, 0, 0.8);
+    margin-left: 10%;
+}
+
+.animated-word:hover {
+    background: #6feeca;
+    box-shadow: 0 15px 20px rgba(46, 229, 157, .4);
+    color: black;
+    transform: translateY(-7px);
+    color: rgba(91, 196, 132, 0.7);
+    outline-color: rgba(171, 66, 22, 0);
+    outline-offset: 590px;
+}
+
+body > h7 {
+    text-align: center;
+}
+
+#clock {
+    font-size: 30px;
+}
+
+#clock:hover {
+    text-shadow: #202125;
+    color: red;
+}
+
+#chart {
+    margin-left: 60%;
+    margin-top: 30px;
+}
+
+p {
+    margin: 0 0;
+}
+
+.box {
+    border-radius: 10px;
+    border: 5px solid #6feeca;
+    background-color: rgba(5, 5, 5, 0.3);
+    text-align: center;
+    margin: 11px;
+}

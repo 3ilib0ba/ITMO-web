@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <link rel="stylesheet" href="resources/css/main.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>web-lab-3-finale</title>
+</h:head>
+
+<h:body onload="svgInit(); drawPoints();">
+    <div class="wrapper">
+        <div id="header">
+            Иванов Евгений Дмитриевич Группа 3213 Вариант 13610
+        </div>
+        <div id="checkForm">
+            <h:form id="main_form">
+                <div class="xLocator">
+                    <div id="area_x" class="box">
+                        <h:inputHidden id="x_buttons" value="#{hitBean.hit.x}"/>
+                        <p><h:outputLabel class="center" for="coordinateX" value="Choose your X value:"/></p>
+                        <h:commandButton type="button" name = "coordinateX" onclick="return buttonX(-2)" value="-2"/>
+                        <h:commandButton type="button" name = "coordinateX" onclick="return buttonX(-1.5)" value="-1.5"/>
+                        <h:commandButton type="button" name = "coordinateX" onclick="return buttonX(-1)" value="-1"/>
+                        <h:commandButton type="button" name = "coordinateX" onclick="return buttonX(-0.5)" value="-0.5"/>
+                        <h:commandButton type="button" name = "coordinateX" onclick="return buttonX(0)" value="0"/>
+                        <h:commandButton type="button" name = "coordinateX" onclick="return buttonX(0.5)" value="0.5"/>
+                        <h:commandButton type="button" name = "coordinateX" onclick="return buttonX(1)" value="1"/>
+                        <h:commandButton type="button" name = "coordinateX" onclick="return buttonX(1.5)" value="1.5"/>
+                        <h:commandButton type="button" name = "coordinateX" onclick="return buttonX(2)" value="2"/>
+                    </div>
+                </div>
+
+
+                <div class="yLocator">
+                    <div id="area_y" class="box">
+                        <p><h:outputLabel for="yValue" value="Input your Y value:"/></p>
+                        <h:inputText type="text" id="yValue" name="yVal" maxlength="9" value="#{hitBean.hit.y}"
+                                     a:placeholder="from -5 to 3" style="font-family: Optima, serif;
+                                            font-size: 19px;
+                                            text-align: center;
+                                            height: 46px;
+                                            width: 70%;
+                                            background: transparent;
+                                            border: 5px solid #6feeca;
+                                            margin: 22px 0 22px 0;
+                                            border-radius: 10px;
+                                            color: antiquewhite;">
+                            <f:validateRequired/>
+                            <f:validateDoubleRange minimum="-5" maximum="3"/>
+                        </h:inputText>
+                    </div>
+                </div>
+
+
+                <div class="rLocator">
+                    <div id="area_r" class="box">
+                        <p><label class="center">Choose your R value:</label></p>
+                        <p:spinner id="rSpinner" class="rValue" name="rVal" value="#{hitBean.hit.r}" min="1" max="3"
+                                   stepFactor="0.1" onchange="changeR()">
+                            <f:validateRequired/>
+                            <f:validateDoubleRange minimum="1" maximum="3"/>
+                        </p:spinner>
+                    </div>
+                </div>
+
+                <div class="sLocator">
+                    <div id="area_submit">
+                        <h:messages style="color:red;margin:8px;"/>
+                        <h:commandButton styleClass="animated-word" id="submitButton"
+                                         action="#{hitBean.addHit}" value="submit"
+                                         onclick="validateY(); validateX();">
+                            <f:ajax execute="@form" render="resTable" onevent="
+                                (data) => {
+                                    if (data.status === 'success') {
+                                        drawLastShoot();
+                                    }
+                                }
+                                "/>
+                        </h:commandButton>
+                    </div>
+                </div>
+            </h:form>
+
+            <h:panelGroup id="resTable">
+                <div id="tLocator">
+                    <table id="tableWithResults">
+                        <tr>
+                            <th>x</th>
+                            <th>y</th>
+                            <th>r</th>
+                            <th>result</th>
+                            <th>execute_time</th>
+                            <th>local_time</th>
+                        </tr>
+                        <ui:repeat value="#{hitBean.hits}" var="hit">
+                            <tr>
+                                <td class="iks">#{hit.x}</td>
+                                <td class="igr">#{hit.y}</td>
+                                <td>#{hit.r}</td>
+                                <td class="resi">#{hit.res}</td>
+                                <td>#{hit.exec}</td>
+                                <td>#{hit.current}</td>
+                            </tr>
+                        </ui:repeat>
+                    </table>
+                </div>
+            </h:panelGroup>
+        </div>
+
+        <div id="area_diagram">
+            <svg class="diagram" id="mySVG" xmlns="http://www.w3.org/2000/svg" width="310" height="310">
+            </svg>
+        </div>
+
+        <h:link id="back" outcome="toIndex">
+            <button id="back_button" type="submit" class="animated-word">
+                <b>to index</b>
+            </button>
+        </h:link>
+
+        <h:form id="form_hidden" style="display: none">
+            <h:inputHidden id="x_hidden" value="#{hitBean.hit.x}"/>
+            <h:inputHidden id="y_hidden" value="#{hitBean.hit.y}"/>
+            <h:inputHidden id="r_hidden" value="#{hitBean.hit.r}"/>
+            <h:commandButton id="button_hidden" action="#{hitBean.addHit}">
+                <f:ajax execute="@form" render="resTable" onevent="
+                (data) => {
+                    if (data.status === 'success') {
+                        drawLastShoot();
+                    }
+                }
+                "/>
+            </h:commandButton>
+        </h:form>
+        <script src="https://d3js.org/d3.v7.min.js" type="text/javascript"></script>
+        <h:outputScript library="scripts" name="script.js"/>
+        <h:outputScript library="scripts" name="draw.js"/>
+    </div>
+</h:body>
+</html>

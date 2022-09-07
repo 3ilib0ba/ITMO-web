@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <h:outputStylesheet library="css" name="style.css"/>
+    <title>ITMO-lab-3</title>
+</h:head>
+
+<h:body style="
+    font-size: 20px;
+    min-width: 50%;
+    background-image: url('resources/decorations/corgi.jpg');
+    background-size: 100%;
+    background-repeat: repeat-y, no-repeat;">
+    <h:outputText styleClass="biba" value="Иванов Евгений Дмитриевич Группа 3213 Вариант 13610"/>
+    <br/><br/>
+    <h:outputText id="clock" styleClass="clock" value="Текущее время: #{clocks.dateTime}"/>
+    <br/>
+    <p:poll interval="6" listener="#{clocks.updateTime}" update="clock"> </p:poll>
+    <br/>
+    <h:link id="to_main_page_button" outcome="toMain">
+        <button class="animated-word center" type="submit">
+            Качественный контент
+        </button>
+    </h:link>
+</h:body>
+</html>

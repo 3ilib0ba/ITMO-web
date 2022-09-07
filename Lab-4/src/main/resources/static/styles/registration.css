@@ -1,0 +1,71 @@
+#move-to-main #move-to-register {
+    margin-top: 5px;
+    padding-left: 10px;
+    background-color: #3399ff;
+    border-radius: 3px;
+    text-align: center;
+    color: black;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+#move-to-main:hover #move-to-register{
+    color: black;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+body {
+    font-size: 14px;
+    margin: 0 0 0 0;
+}
+
+.center-aligned {
+    text-align: center;
+}
+
+
+#header-text {
+    margin-top: 10px;
+    margin-right: 25%;
+    margin-left: 25%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    background-color:#FFFFFFFF;
+    font-size: 22px;
+    border-radius: 7px;
+    text-align: center;
+}
+a {
+    color: #2b81d6;
+}
+
+table {
+    margin: auto;
+}
+
+@media screen and (max-device-width: 751px) {
+    #header-text {
+        font-size: 37px;
+    }
+    body, #move-to-main #move-to-register  {
+        font-size: 32px;
+    }
+    input[type=text], input[type=password] {
+        height: 35px;
+        font-size: 22px;
+    }
+}
+
+@media screen and (min-device-width: 751px) and (max-device-width: 1112px) {
+    #header-text {
+        font-size: 26px;
+    }
+    body, #move-to-main #move-to-register {
+        font-size: 20px;
+    }
+    input[type=text], input[type=password] {
+        height: 30px;
+        font-size: 20px;
+    }
+}
